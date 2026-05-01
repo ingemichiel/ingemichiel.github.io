@@ -533,6 +533,65 @@
     font-weight: 500;
   }
 
+  /* ================ PLANS ================ */
+  .plans {
+    padding: 60px 0 80px;
+  }
+
+  .plans-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .plan-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 22px 26px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--ink);
+    transition: all 0.3s ease;
+  }
+
+  .plan-card:hover {
+    border-color: var(--accent);
+    background: var(--bg-warm);
+    transform: translateX(4px);
+  }
+
+  .plan-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--paper);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fraunces', serif;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  .plan-card strong {
+    display: block;
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1.2rem;
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+  }
+
+  .plan-card span {
+    font-size: 0.85rem;
+    color: var(--ink-mute);
+  }
+
   /* ================ LOCATION ================ */
   .location {
     padding: 100px 0;
@@ -879,6 +938,8 @@
 
     .specs-grid { grid-template-columns: 1fr; gap: 0; }
 
+    .plans-grid { grid-template-columns: 1fr; }
+
     .form-row { grid-template-columns: 1fr; }
 
     .topbar .cta-btn {
@@ -1022,8 +1083,8 @@
         </p>
         <p>
           De woning is uitgerust met hedendaagse, duurzame technieken: een
-          warmtepomp met vloerverwarming en -koeling, een ventilatiesysteem D,
-          regenwaterrecuperatie voor de toiletten met automatische omschakeling.
+          warmtepomp met vloerverwarming en -koeling, een ventilatiesysteem D
+          en regenwaterrecuperatie voor de toiletten met automatische omschakeling.
         </p>
         <p>
           De hoogwaardige afwerking met parketvloeren en ingemaakte kasten
@@ -1150,7 +1211,6 @@
         <div class="spec-row"><span>Koeling</span><span>Vloerkoeling</span></div>
         <div class="spec-row"><span>Ventilatie</span><span>Systeem D</span></div>
         <div class="spec-row"><span>Glas</span><span>Dubbel</span></div>
-        <div class="spec-row"><span>Regenwater</span><span>Automatische omschakeling</span></div>
         <div class="spec-row"><span>Garage</span><span>1 + 2 buitenparkings</span></div>
         <div class="spec-row"><span>Keuringsattest elektriciteit</span><span>Geldig</span></div>
         <div class="spec-row"><span>Asbestattest</span><span>Niet vereist (bouwjaar 2016)</span></div>
@@ -1162,6 +1222,45 @@
   </div>
 </section>
 
+<!-- ================ PLANS ================ -->
+<section class="plans container">
+  <div class="section-head reveal">
+    <h2 class="display">De plannen, om <em>thuis</em> te bekijken.</h2>
+    <p>Vier PDF's met de officiële plannen. Klik om te downloaden of meteen in je browser te openen.</p>
+  </div>
+
+  <div class="plans-grid reveal">
+    <a href="plans/A3%20INPLANTING.pdf" class="plan-card" target="_blank" rel="noopener">
+      <div class="plan-icon">↓</div>
+      <div>
+        <strong>Inplantingsplan</strong>
+        <span>A3 · Situering op het perceel</span>
+      </div>
+    </a>
+    <a href="plans/A4%20PLANNEN%20GV.pdf" class="plan-card" target="_blank" rel="noopener">
+      <div class="plan-icon">↓</div>
+      <div>
+        <strong>Gelijkvloers</strong>
+        <span>A4 · Inkomhal, leefruimte &amp; keuken</span>
+      </div>
+    </a>
+    <a href="plans/A4%20PLANNEN%20+1.pdf" class="plan-card" target="_blank" rel="noopener">
+      <div class="plan-icon">↓</div>
+      <div>
+        <strong>Eerste verdieping</strong>
+        <span>A4 · 2 slaapkamers, bureau &amp; badkamer</span>
+      </div>
+    </a>
+    <a href="plans/A4%20PLANNEN%20+2.pdf" class="plan-card" target="_blank" rel="noopener">
+      <div class="plan-icon">↓</div>
+      <div>
+        <strong>Tweede verdieping</strong>
+        <span>A4 · Master, dressing &amp; tweede badkamer</span>
+      </div>
+    </a>
+  </div>
+</section>
+
 <!-- ================ LOCATION ================ -->
 <section class="location container">
   <div class="location-grid">
@@ -1170,7 +1269,7 @@
       <h2 class="display">Reetsesteenweg 177, <em>ideaal</em> gelegen.</h2>
       <p>
         De rust van een groene gemeente, de bereikbaarheid van een centrumstad.
-        Antwerpen is met de fiets of auto vlot bereikbaar; pendelaars naar Brussel
+        Antwerpen is met de fiets of auto vlot bereikbaar. Pendelaars naar Brussel
         of Mechelen profiteren van de snelle aansluiting op de E19 of A12.
       </p>
 
