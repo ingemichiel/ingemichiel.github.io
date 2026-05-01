@@ -1,0 +1,16 @@
+# OS-specifieke bestanden
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor-bestanden
+.vscode/
+.idea/
+*.swp
+
+# Bestanden die we niet willen pushen
+*.psd
+*.zip
+
+# Claude Code lokale config
+.claude/
