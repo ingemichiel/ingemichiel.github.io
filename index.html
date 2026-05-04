@@ -963,6 +963,98 @@
     .stats-grid { grid-template-columns: 1fr 1fr; }
     .visit-form { padding: 24px; }
   }
+
+  /* ================ LIGHTBOX ================ */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.94);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 60px 80px 80px;
+  }
+
+  .lightbox.open { display: flex; }
+
+  .lightbox img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 4px;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  .lb-close,
+  .lb-prev,
+  .lb-next {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.12);
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    transition: background 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+    padding: 0;
+    line-height: 1;
+  }
+
+  .lb-close:hover,
+  .lb-prev:hover,
+  .lb-next:hover,
+  .lb-close:focus,
+  .lb-prev:focus,
+  .lb-next:focus {
+    background: rgba(255, 255, 255, 0.28);
+    outline: none;
+  }
+
+  .lb-close {
+    top: 20px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+    font-size: 1.6rem;
+  }
+
+  .lb-prev,
+  .lb-next {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 52px;
+    height: 52px;
+    font-size: 2rem;
+  }
+
+  .lb-prev { left: 20px; }
+  .lb-next { right: 20px; }
+
+  .lb-counter {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (max-width: 880px) {
+    .lightbox { padding: 56px 12px 56px; }
+    .lb-close { top: 12px; right: 12px; }
+    .lb-prev, .lb-next { width: 44px; height: 44px; font-size: 1.6rem; }
+    .lb-prev { left: 8px; }
+    .lb-next { right: 8px; }
+  }
 </style>
 </head>
 <body>
@@ -1405,33 +1497,107 @@
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  // Lightbox: foto klikken om te vergroten
-  document.querySelectorAll('.gallery-item').forEach(item => {
-    item.addEventListener('click', () => {
-      const img = item.querySelector('img');
-      if (!img) return;
-      const overlay = document.createElement('div');
-      overlay.style.cssText = `
-        position:fixed; inset:0; background:rgba(0,0,0,0.94);
-        display:flex; align-items:center; justify-content:center;
-        z-index:1000; cursor:zoom-out; padding:40px;
-      `;
-      const big = document.createElement('img');
-      big.src = img.src;
-      big.alt = img.alt;
-      big.style.cssText = 'max-width:100%; max-height:100%; object-fit:contain; border-radius:4px;';
-      overlay.appendChild(big);
-      const closeOverlay = () => overlay.remove();
-      overlay.addEventListener('click', closeOverlay);
-      document.addEventListener('keydown', function escClose(e) {
-        if (e.key === 'Escape') {
-          closeOverlay();
-          document.removeEventListener('keydown', escClose);
-        }
+  // Lightbox met navigatie, X-knop, en history-back om te sluiten
+  (function setupLightbox() {
+    const lb = document.createElement('div');
+    lb.className = 'lightbox';
+    lb.setAttribute('aria-hidden', 'true');
+    lb.innerHTML = `
+      <button class="lb-close" type="button" aria-label="Sluiten">×</button>
+      <button class="lb-prev" type="button" aria-label="Vorige">‹</button>
+      <img alt="">
+      <button class="lb-next" type="button" aria-label="Volgende">›</button>
+      <div class="lb-counter"></div>
+    `;
+    document.body.appendChild(lb);
+
+    const lbImg = lb.querySelector('img');
+    const lbCounter = lb.querySelector('.lb-counter');
+    const lbPrev = lb.querySelector('.lb-prev');
+    const lbNext = lb.querySelector('.lb-next');
+    const lbClose = lb.querySelector('.lb-close');
+
+    let set = [];
+    let idx = 0;
+    let isOpen = false;
+
+    const render = () => {
+      const item = set[idx];
+      lbImg.src = item.src;
+      lbImg.alt = item.alt || '';
+      lbCounter.textContent = (idx + 1) + ' / ' + set.length;
+      const single = set.length <= 1;
+      lbPrev.style.display = single ? 'none' : '';
+      lbNext.style.display = single ? 'none' : '';
+      lbCounter.style.display = single ? 'none' : '';
+    };
+
+    const open = (newSet, newIdx) => {
+      set = newSet;
+      idx = newIdx;
+      render();
+      lb.classList.add('open');
+      lb.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      isOpen = true;
+      history.pushState({ lightbox: true }, '');
+    };
+
+    const close = () => {
+      if (!isOpen) return;
+      lb.classList.remove('open');
+      lb.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      isOpen = false;
+    };
+
+    const requestClose = () => { if (isOpen) history.back(); };
+    const next = () => { idx = (idx + 1) % set.length; render(); };
+    const prev = () => { idx = (idx - 1 + set.length) % set.length; render(); };
+
+    document.querySelectorAll('.gallery-grid, .more-grid').forEach(grid => {
+      const items = Array.from(grid.querySelectorAll('.gallery-item img'))
+        .map(img => ({ src: img.src, alt: img.alt }));
+      grid.querySelectorAll('.gallery-item').forEach((item, i) => {
+        item.addEventListener('click', e => {
+          e.preventDefault();
+          open(items, i);
+        });
       });
-      document.body.appendChild(overlay);
     });
-  });
+
+    lbClose.addEventListener('click', e => { e.stopPropagation(); requestClose(); });
+    lbNext.addEventListener('click', e => { e.stopPropagation(); next(); });
+    lbPrev.addEventListener('click', e => { e.stopPropagation(); prev(); });
+
+    lb.addEventListener('click', e => {
+      if (e.target === lb || e.target === lbImg) requestClose();
+    });
+
+    document.addEventListener('keydown', e => {
+      if (!isOpen) return;
+      if (e.key === 'Escape') requestClose();
+      else if (e.key === 'ArrowRight') next();
+      else if (e.key === 'ArrowLeft') prev();
+    });
+
+    window.addEventListener('popstate', () => { if (isOpen) close(); });
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+    lb.addEventListener('touchstart', e => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+    lb.addEventListener('touchend', e => {
+      if (!isOpen) return;
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      const dy = e.changedTouches[0].clientY - touchStartY;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+        if (dx < 0) next(); else prev();
+      }
+    }, { passive: true });
+  })();
 </script>
 
 <!-- Cloudflare Web Analytics -->
