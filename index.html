@@ -1055,6 +1055,34 @@
     .lb-prev { left: 8px; }
     .lb-next { right: 8px; }
   }
+
+  .lightbox img {
+    transition: opacity 0.25s ease;
+  }
+
+  .lightbox.loading img {
+    opacity: 0.25;
+  }
+
+  .lb-loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 36px;
+    height: 36px;
+    margin: -18px 0 0 -18px;
+    border: 3px solid rgba(255, 255, 255, 0.18);
+    border-top-color: rgba(255, 255, 255, 0.85);
+    border-radius: 50%;
+    animation: lb-spin 0.8s linear infinite;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+  }
+
+  .lightbox.loading .lb-loader { opacity: 1; }
+
+  @keyframes lb-spin { to { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
@@ -1506,6 +1534,7 @@
       <button class="lb-close" type="button" aria-label="Sluiten">×</button>
       <button class="lb-prev" type="button" aria-label="Vorige">‹</button>
       <img alt="">
+      <div class="lb-loader" aria-hidden="true"></div>
       <button class="lb-next" type="button" aria-label="Volgende">›</button>
       <div class="lb-counter"></div>
     `;
@@ -1523,13 +1552,27 @@
 
     const render = () => {
       const item = set[idx];
-      lbImg.src = item.src;
+      if (lbImg.src !== item.src) {
+        lb.classList.add('loading');
+        lbImg.src = item.src;
+      }
       lbImg.alt = item.alt || '';
       lbCounter.textContent = (idx + 1) + ' / ' + set.length;
       const single = set.length <= 1;
       lbPrev.style.display = single ? 'none' : '';
       lbNext.style.display = single ? 'none' : '';
       lbCounter.style.display = single ? 'none' : '';
+    };
+
+    lbImg.addEventListener('load', () => lb.classList.remove('loading'));
+    lbImg.addEventListener('error', () => lb.classList.remove('loading'));
+
+    const preload = (items) => {
+      items.forEach(item => {
+        if (!item || !item.src) return;
+        const i = new Image();
+        i.src = item.src;
+      });
     };
 
     const open = (newSet, newIdx) => {
@@ -1541,6 +1584,7 @@
       document.body.style.overflow = 'hidden';
       isOpen = true;
       history.pushState({ lightbox: true }, '');
+      preload(newSet);
     };
 
     const close = () => {
