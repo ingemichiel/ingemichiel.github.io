@@ -19,7 +19,7 @@
     --line: #C9C0B0;
   }
 
-  @page { size: A4; margin: 12mm; }
+  @page { size: A4; margin: 10mm; }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -49,7 +49,37 @@
 
   @media print {
     html { background: #fff; }
-    .page { box-shadow: none; margin: 0; width: auto; min-height: auto; padding: 0; }
+    body { font-size: 9.8pt; }
+    .page {
+      box-shadow: none;
+      margin: 0 !important;
+      width: 100% !important;
+      min-height: 0 !important;
+      height: auto !important;
+      padding: 0 !important;
+      display: block !important;
+    }
+    .page:not(:last-child) {
+      page-break-after: always;
+      break-after: page;
+    }
+    .top { padding-bottom: 5mm; margin-bottom: 5mm; }
+    .hero { aspect-ratio: 16 / 6; margin-bottom: 4mm; }
+    .facts { padding: 4mm 0; margin-bottom: 5mm; }
+    .fact .val { font-size: 14pt; }
+    .epc-pill { font-size: 12pt; padding: 1.5mm 3mm; }
+    h1.headline { font-size: 22pt; margin-bottom: 3mm; }
+    .address-line { margin-bottom: 4mm; font-size: 10pt; }
+    .price-box .price { font-size: 20pt; }
+    h2.section { font-size: 12pt; margin-bottom: 2mm; margin-top: 4mm; }
+    .indeling { gap: 2mm 5mm; margin-bottom: 3mm; }
+    .indeling dt, .indeling dd { font-size: 9.5pt; }
+    .facts-list li { padding: 1.4mm 0; font-size: 9pt; }
+    .docs-list li { padding: 1mm 0; font-size: 9pt; }
+    .contact-block { margin-top: 5mm; padding: 5mm 7mm; }
+    .pagefoot { margin-top: 4mm; padding-top: 2mm; }
+    .pagefoot.next { margin-top: 3mm; }
+    .two-cols { margin-bottom: 4mm; }
   }
 
   .label {
@@ -358,7 +388,7 @@
 
   <div class="two-cols">
     <div>
-      <h1 class="headline">Een huis dat we zelf lieten <em>bouwen</em> om in te wonen.</h1>
+      <h1 class="headline">Instapklare woning met <em>garage en tuin</em>.</h1>
       <div class="address-line">Reetsesteenweg 177, 2630 Aartselaar</div>
     </div>
     <div class="price-box">
@@ -371,11 +401,6 @@
   <div class="hero">
     <img src="photos/04.jpg" alt="Lichtrijke leefruimte met zicht op de tuin">
   </div>
-
-  <p class="lead-quote">
-    "Wat we het meest gaan missen? De stilte achteraan, en hoe de zon 's avonds in de keuken valt."
-    <span class="src">Inge, eigenaar</span>
-  </p>
 
   <div class="facts">
     <div class="fact">
@@ -412,8 +437,8 @@
     zomer koel en in de winter warm zonder dat je er iets voor doet.
   </p>
   <p>
-    Achteraan grenst de tuin aan een open veld met bomen. Geen drukte, wel
-    rust en groen, op een paar minuten van A12 en E19.
+    Rustige ligging met vlotte verbindingen naar A12, E19 en Antwerpen-centrum.
+    Mobiscore 8 op 10 voor scholen, winkels en openbaar vervoer in de buurt.
   </p>
 
   <h2 class="section" style="margin-top: 5mm;">Indeling</h2>
@@ -425,7 +450,7 @@
     <dd>Twee slaapkamers, apart bureau, wasplaats en badkamer met toilet, bad en dubbel lavabomeubel.</dd>
 
     <dt>2e verdieping</dt>
-    <dd>Master van 31 m² met dressing en berging. Tweede badkamer met toilet, douche en dubbel lavabomeubel. De master kan opgesplitst worden in twee volwaardige slaapkamers.</dd>
+    <dd>Master van 31 m² met dressing. Tweede badkamer met toilet, douche en dubbel lavabomeubel. Aparte berging. De master kan opgesplitst worden in twee volwaardige slaapkamers.</dd>
 
     <dt>Buiten</dt>
     <dd>Tuin van 96 m² (oriëntatie noordoost), terras van 18 m², garage met directe toegang en 2 extra parkeerplaatsen op de oprit.</dd>
@@ -442,7 +467,7 @@
     <div class="info-link">ingemichiel.github.io</div>
   </div>
 
-  <h2 class="section">Wat de <em>papieren</em> zeggen</h2>
+  <h2 class="section"><em>Officiële</em> gegevens</h2>
   <ul class="facts-list">
     <li><span>EPC-label</span><span>A · 71 kWh/m²/jaar</span></li>
     <li><span>Asbestattest</span><span>Niet vereist (woning gebouwd na 2001)</span></li>
@@ -456,14 +481,13 @@
     <li><span>Gevels</span><span>2 (gevelbreedte 6 m)</span></li>
   </ul>
 
-  <h2 class="section">Wat <em>erin</em> zit</h2>
+  <h2 class="section">Technieken en <em>afwerking</em></h2>
   <ul class="facts-list">
     <li><span>Verwarming</span><span>Lucht-water warmtepomp + vloerverwarming</span></li>
     <li><span>Koeling</span><span>Vloerkoeling (geen aparte airco)</span></li>
     <li><span>Ventilatie</span><span>Systeem D met warmterecuperatie</span></li>
     <li><span>Regenwater</span><span>Recuperatie voor toiletten met automatische omschakeling</span></li>
-    <li><span>Afwerking</span><span>Parketvloeren, ingemaakte kasten</span></li>
-    <li><span>Parkeren</span><span>1 garage + 2 plaatsen op de oprit</span></li>
+    <li><span>Afwerking</span><span>Parketvloeren, ingemaakte kasten, 1 garage + 2 plaatsen op de oprit</span></li>
   </ul>
 
   <h2 class="section">Documenten</h2>
@@ -485,7 +509,6 @@
         <div>+32 472 36 22 25</div>
         <div>inge.verdoodt@hotmail.com</div>
       </div>
-      <p>Liever eerst de plannen of een tweede bezichtiging? Stuur een berichtje, dan plannen we iets in.</p>
     </div>
     <div class="qr">
       <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsAQMAAABDsxw2AAAABlBMVEX///8AAABVwtN+AAAACXBIWXMAAA7EAAAOxAGVKw4bAAABHElEQVRoge3X0Q3DIAwEUDZg/y27gVsCPh8JUn971VlVlOKX/IANaYF4tRF93XyunDJTYjM7x/PvMWUmxGqwj9vJWttSZqJsZHuVttkfsBF9yGcJm2mxY4ueI187udkvMsSr3X+cMtNhz4hr/z0kzETYYQ1ctbx6NTq2mQ6bI8F7bm67C5iJspz91moN4Cm8xEyCBZ2dWn7GIgLfPmY6DDO7pr7XvNeBykyKBY6+PepZtGju2GZCjEDsZypeA2ZCrPCMrGvsy2Zy7OYhsRhQ9WYSjCOoLQcfscykWCBQ1/nIYSWYSTAa5+t96s2kWM37dVP7b64NM2FGg3Vm3l9iJsYwy1nO2/eOmQ6rJowRqmju2GYaDMHg1KjNRNgbUxb9CaUXJFkAAAAASUVORK5CYII=" alt="QR-code naar ingemichiel.github.io">
