@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>Reetsesteenweg 177 · Aartselaar · Infofolder</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #F1ECE2;
+    --paper: #F8F4EC;
+    --ink: #1A1916;
+    --ink-soft: #4A463E;
+    --ink-mute: #7A746A;
+    --accent: #2E4A36;
+    --line: #C9C0B0;
+  }
+
+  @page { size: A4; margin: 12mm; }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { background: #555; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    font-size: 10.5pt;
+  }
+
+  .page {
+    background: var(--paper);
+    width: 210mm;
+    min-height: 297mm;
+    padding: 14mm 14mm 12mm;
+    margin: 16px auto;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+    page-break-after: always;
+    display: flex;
+    flex-direction: column;
+  }
+  .page:last-child { page-break-after: auto; }
+
+  @media print {
+    html { background: #fff; }
+    .page { box-shadow: none; margin: 0; width: auto; min-height: auto; padding: 0; }
+  }
+
+  .label {
+    font-size: 7.5pt;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-weight: 500;
+    color: var(--ink-mute);
+  }
+
+  /* ==== HEADER ==== */
+  .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: 8mm;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 7mm;
+  }
+
+  .brand {
+    font-family: 'Fraunces', serif;
+    font-size: 11pt;
+    font-weight: 500;
+  }
+  .brand-mark {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    margin-right: 6px;
+    transform: translateY(-1px);
+  }
+
+  .info-link {
+    font-size: 8pt;
+    color: var(--ink-mute);
+  }
+
+  /* ==== HEADLINE ==== */
+  h1.headline {
+    font-family: 'Fraunces', serif;
+    font-size: 24pt;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 4mm;
+  }
+  h1.headline em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 300;
+  }
+
+  .address-line {
+    font-size: 11pt;
+    color: var(--ink-soft);
+    margin-bottom: 6mm;
+  }
+
+  /* ==== HERO PHOTO ==== */
+  .hero {
+    width: 100%;
+    aspect-ratio: 16 / 7;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #ddd;
+    margin-bottom: 5mm;
+  }
+  .hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* ==== INGE QUOTE ==== */
+  .lead-quote {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 11pt;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    margin: 5mm 0 6mm;
+    padding-left: 5mm;
+    border-left: 2px solid var(--accent);
+  }
+  .lead-quote .src {
+    display: block;
+    font-style: normal;
+    font-family: 'Outfit', sans-serif;
+    font-size: 8.5pt;
+    color: var(--ink-mute);
+    margin-top: 1.5mm;
+    letter-spacing: 0.04em;
+  }
+
+  /* ==== KEY FACTS GRID ==== */
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 5mm 0;
+    margin-bottom: 7mm;
+  }
+  .fact {
+    border-left: 1px solid var(--line);
+    padding-left: 4mm;
+  }
+  .fact:first-child { border-left: none; padding-left: 0; }
+  .fact .label { margin-bottom: 1.5mm; font-size: 6.5pt; }
+  .fact .val {
+    font-family: 'Fraunces', serif;
+    font-size: 16pt;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .fact .val sup {
+    font-size: 7pt;
+    color: var(--ink-mute);
+    vertical-align: super;
+    margin-left: 1px;
+  }
+  .fact .sub { font-size: 7.5pt; color: var(--ink-mute); margin-top: 1mm; }
+  .epc-pill {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--paper);
+    font-family: 'Fraunces', serif;
+    font-size: 14pt;
+    line-height: 1;
+    padding: 2mm 4mm;
+    border-radius: 2px;
+    letter-spacing: -0.02em;
+  }
+
+  /* ==== TWO COLS ==== */
+  .two-cols {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 8mm;
+    align-items: end;
+    margin-bottom: 6mm;
+  }
+
+  .price-box {
+    text-align: right;
+  }
+  .price-box .label { font-size: 7.5pt; }
+  .price-box .price {
+    font-family: 'Fraunces', serif;
+    font-size: 22pt;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin: 1mm 0;
+  }
+  .price-box .price-note {
+    font-size: 8pt;
+    color: var(--ink-mute);
+    line-height: 1.4;
+  }
+
+  /* ==== HEADINGS ==== */
+  h2.section {
+    font-family: 'Fraunces', serif;
+    font-size: 13pt;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin-bottom: 3mm;
+    color: var(--ink);
+  }
+  h2.section em { font-style: italic; color: var(--accent); }
+
+  p { color: var(--ink-soft); margin-bottom: 2.5mm; }
+
+  /* ==== INDELING ==== */
+  .indeling {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 3mm 5mm;
+    margin-bottom: 5mm;
+  }
+  .indeling dt {
+    font-family: 'Fraunces', serif;
+    font-size: 10pt;
+    font-weight: 500;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+  .indeling dd { color: var(--ink-soft); font-size: 10pt; }
+
+  /* ==== FACTS LIST ==== */
+  .facts-list {
+    list-style: none;
+    margin-bottom: 5mm;
+  }
+  .facts-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.8mm 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 9.5pt;
+    gap: 4mm;
+  }
+  .facts-list li :first-child { color: var(--ink-mute); }
+  .facts-list li :last-child { font-weight: 500; text-align: right; }
+
+  .docs-list {
+    columns: 2;
+    column-gap: 6mm;
+    list-style: none;
+    margin-bottom: 5mm;
+  }
+  .docs-list li {
+    font-size: 9.5pt;
+    padding: 1.4mm 0;
+    color: var(--ink-soft);
+    break-inside: avoid;
+  }
+  .docs-list li::before {
+    content: '·';
+    color: var(--accent);
+    margin-right: 5px;
+    font-weight: bold;
+  }
+
+  /* ==== CONTACT BLOCK ==== */
+  .contact-block {
+    margin-top: auto;
+    background: var(--accent);
+    color: var(--paper);
+    padding: 7mm 8mm;
+    border-radius: 4px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 6mm;
+    align-items: center;
+  }
+  .contact-block h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 14pt;
+    font-weight: 500;
+    margin-bottom: 2mm;
+  }
+  .contact-block p {
+    color: rgba(248, 244, 236, 0.92);
+    margin: 0;
+    font-size: 9.5pt;
+    line-height: 1.5;
+  }
+  .contact-block .lines {
+    font-weight: 500;
+    margin: 2.5mm 0 2.5mm;
+    font-size: 10.5pt;
+    color: var(--paper);
+  }
+  .contact-block .lines div { padding: 0.4mm 0; }
+  .qr {
+    background: var(--paper);
+    padding: 2mm;
+    border-radius: 3px;
+    text-align: center;
+    width: 26mm;
+  }
+  .qr img { width: 22mm; height: 22mm; display: block; }
+  .qr-text {
+    font-size: 7pt;
+    color: var(--ink-mute);
+    margin-top: 1mm;
+    line-height: 1.2;
+  }
+
+  /* ==== FOOTER ==== */
+  .pagefoot {
+    font-size: 7.5pt;
+    color: var(--ink-mute);
+    text-align: center;
+    margin-top: 5mm;
+    padding-top: 3mm;
+    border-top: 1px solid var(--line);
+  }
+  .pagefoot.next {
+    text-align: right;
+    color: var(--accent);
+    font-weight: 500;
+    font-size: 8.5pt;
+    border: none;
+    padding-top: 0;
+    margin-top: 4mm;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============== PAGE 1: VOORZIJDE ============== -->
+<div class="page">
+
+  <div class="top">
+    <div class="brand"><span class="brand-mark"></span>Aartselaar · Particuliere verkoop</div>
+    <div class="info-link">ingemichiel.github.io</div>
+  </div>
+
+  <div class="two-cols">
+    <div>
+      <h1 class="headline">Een huis dat we zelf lieten <em>bouwen</em> om in te wonen.</h1>
+      <div class="address-line">Reetsesteenweg 177, 2630 Aartselaar</div>
+    </div>
+    <div class="price-box">
+      <div class="label">Vraagprijs</div>
+      <div class="price">€&nbsp;585.000</div>
+      <div class="price-note">Exclusief notariskosten<br>Datum van beschikbaarheid in onderling overleg</div>
+    </div>
+  </div>
+
+  <div class="hero">
+    <img src="photos/04.jpg" alt="Lichtrijke leefruimte met zicht op de tuin">
+  </div>
+
+  <p class="lead-quote">
+    "Wat we het meest gaan missen? De stilte achteraan, en hoe de zon 's avonds in de keuken valt."
+    <span class="src">Inge, eigenaar</span>
+  </p>
+
+  <div class="facts">
+    <div class="fact">
+      <div class="label">Bewoonbaar</div>
+      <div class="val">180<sup>m²</sup></div>
+      <div class="sub">op 199 m² perceel</div>
+    </div>
+    <div class="fact">
+      <div class="label">Slaapkamers</div>
+      <div class="val">3</div>
+      <div class="sub">+ apart bureau</div>
+    </div>
+    <div class="fact">
+      <div class="label">EPC</div>
+      <span class="epc-pill">A</span>
+      <div class="sub">71 kWh/m²/jaar</div>
+    </div>
+    <div class="fact">
+      <div class="label">Bouwjaar</div>
+      <div class="val">2016</div>
+      <div class="sub">door eigenaar gebouwd</div>
+    </div>
+    <div class="fact">
+      <div class="label">Mobiscore</div>
+      <div class="val">8.0<sup>/10</sup></div>
+      <div class="sub">scholen, winkels &amp; OV</div>
+    </div>
+  </div>
+
+  <h2 class="section">Over <em>het huis</em></h2>
+  <p>
+    We bouwden dit huis in 2016 om er zelf te wonen. De leefruimte loopt over
+    in de keuken en de tuin, het is er licht, en de warmtepomp houdt het in de
+    zomer koel en in de winter warm zonder dat je er iets voor doet.
+  </p>
+  <p>
+    Achteraan grenst de tuin aan een open veld met bomen. Geen drukte, wel
+    rust en groen, op een paar minuten van A12 en E19.
+  </p>
+
+  <h2 class="section" style="margin-top: 5mm;">Indeling</h2>
+  <dl class="indeling">
+    <dt>Gelijkvloers</dt>
+    <dd>Inkomhal met gastentoilet en berging. Open leefruimte met groot schuifraam naar de tuin. Volledig uitgeruste keuken.</dd>
+
+    <dt>1e verdieping</dt>
+    <dd>Twee slaapkamers, apart bureau, wasplaats en badkamer met toilet, bad en dubbel lavabomeubel.</dd>
+
+    <dt>2e verdieping</dt>
+    <dd>Master van 31 m² met dressing en berging. Tweede badkamer met toilet, douche en dubbel lavabomeubel. De master kan opgesplitst worden in twee volwaardige slaapkamers.</dd>
+
+    <dt>Buiten</dt>
+    <dd>Tuin van 96 m² (oriëntatie noordoost), terras van 18 m², garage met directe toegang en 2 extra parkeerplaatsen op de oprit.</dd>
+  </dl>
+
+  <div class="pagefoot next">Vervolg op de achterzijde →</div>
+</div>
+
+<!-- ============== PAGE 2: ACHTERZIJDE ============== -->
+<div class="page">
+
+  <div class="top">
+    <div class="brand"><span class="brand-mark"></span>Reetsesteenweg 177 · Aartselaar</div>
+    <div class="info-link">ingemichiel.github.io</div>
+  </div>
+
+  <h2 class="section">Wat de <em>papieren</em> zeggen</h2>
+  <ul class="facts-list">
+    <li><span>EPC-label</span><span>A · 71 kWh/m²/jaar</span></li>
+    <li><span>Asbestattest</span><span>Niet vereist (woning gebouwd na 2001)</span></li>
+    <li><span>Keuringsattest elektriciteit</span><span>Conform (gekeurd februari 2017)</span></li>
+    <li><span>Keuring privéwaterafvoer</span><span>Conform</span></li>
+    <li><span>Watertoets overstroming</span><span>P-score A · G-score A</span></li>
+    <li><span>Stedenbouwkundige bestemming</span><span>Woongebied</span></li>
+    <li><span>Stedenbouwkundige vergunning</span><span>Vergund</span></li>
+    <li><span>Voorkooprecht</span><span>Geen</span></li>
+    <li><span>Onroerend erfgoed</span><span>Geen beschermd statuut</span></li>
+    <li><span>Gevels</span><span>2 (gevelbreedte 6 m)</span></li>
+  </ul>
+
+  <h2 class="section">Wat <em>erin</em> zit</h2>
+  <ul class="facts-list">
+    <li><span>Verwarming</span><span>Lucht-water warmtepomp + vloerverwarming</span></li>
+    <li><span>Koeling</span><span>Vloerkoeling (geen aparte airco)</span></li>
+    <li><span>Ventilatie</span><span>Systeem D met warmterecuperatie</span></li>
+    <li><span>Regenwater</span><span>Recuperatie voor toiletten met automatische omschakeling</span></li>
+    <li><span>Afwerking</span><span>Parketvloeren, ingemaakte kasten</span></li>
+    <li><span>Parkeren</span><span>1 garage + 2 plaatsen op de oprit</span></li>
+  </ul>
+
+  <h2 class="section">Documenten</h2>
+  <p style="margin-bottom: 2mm;">Stuur ons een bericht en je krijgt deze digitaal toegestuurd.</p>
+  <ul class="docs-list">
+    <li>EPC-attest (volledig)</li>
+    <li>Kadastraal uittreksel woning &amp; garage</li>
+    <li>Keuringsattest elektriciteit</li>
+    <li>Keuringsverslag riolering</li>
+    <li>Overstromingsrapport woning &amp; garage</li>
+    <li>Plannen van de drie verdiepingen</li>
+  </ul>
+
+  <div class="contact-block">
+    <div>
+      <h3>Vragen of een tweede bezoek?</h3>
+      <p>Bel of mail Inge. Meestal heb je dezelfde dag antwoord.</p>
+      <div class="lines">
+        <div>+32 472 36 22 25</div>
+        <div>inge.verdoodt@hotmail.com</div>
+      </div>
+      <p>Liever eerst de plannen of een tweede bezichtiging? Stuur een berichtje, dan plannen we iets in.</p>
+    </div>
+    <div class="qr">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsAQMAAABDsxw2AAAABlBMVEX///8AAABVwtN+AAAACXBIWXMAAA7EAAAOxAGVKw4bAAABHElEQVRoge3X0Q3DIAwEUDZg/y27gVsCPh8JUn971VlVlOKX/IANaYF4tRF93XyunDJTYjM7x/PvMWUmxGqwj9vJWttSZqJsZHuVttkfsBF9yGcJm2mxY4ueI187udkvMsSr3X+cMtNhz4hr/z0kzETYYQ1ctbx6NTq2mQ6bI8F7bm67C5iJspz91moN4Cm8xEyCBZ2dWn7GIgLfPmY6DDO7pr7XvNeBykyKBY6+PepZtGju2GZCjEDsZypeA2ZCrPCMrGvsy2Zy7OYhsRhQ9WYSjCOoLQcfscykWCBQ1/nIYSWYSTAa5+t96s2kWM37dVP7b64NM2FGg3Vm3l9iJsYwy1nO2/eOmQ6rJowRqmju2GYaDMHg1KjNRNgbUxb9CaUXJFkAAAAASUVORK5CYII=" alt="QR-code naar ingemichiel.github.io">
+      <div class="qr-text">Alle foto's<br>&amp; plannen</div>
+    </div>
+  </div>
+
+  <div class="pagefoot">
+    Bedankt voor je bezoek. Foto's en gegevens zijn indicatief. Versie mei 2026.
+  </div>
+</div>
+
+</body>
+</html>
